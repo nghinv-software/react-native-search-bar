@@ -1,0 +1,94 @@
+version: 2.1
+
+executors:
+  default:
+    docker:
+      - image: circleci/node:14
+    working_directory: ~/project
+    environment:
+      YARN_CACHE_FOLDER: "~/.cache/yarn"
+
+commands:
+  attach_project:
+    steps:
+      - attach_workspace:
+          at: ~/project
+
+jobs:
+  install-dependencies:
+    executor: default
+    steps:
+      - checkout
+      - attach_project
+      - restore_cache:
+          keys:
+            - yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-packages-v1-{{ .Branch }}-
+            - yarn-packages-v1-
+      - run:
+          name: Install project dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  lint:
+    executor: default
+    steps:
+      - attach_project
+      - run:
+          name: Lint files
+          command: |
+            yarn lint
+
+  typescript:
+    executor: default
+    steps:
+      - attach_project
+      - run:
+          name: Type check files
+          command: |
+            yarn typescript
+
+  unit-tests:
+    executor: default
+    steps:
+      - attach_project
+      - run:
+          name: Run unit tests
+          command: |
+            yarn test --coverage
+      - store_artifacts:
+          path: coverage
+          destination: coverage
+
+  build-package:
+    executor: default
+    steps:
+      - attach_project
+      - run:
+          name: Build package
+          command: |
+            yarn prepare
+
+workflows:
+  build-and-test:
+    jobs:
+      - install-dependencies
+      - lint:
+          requires:
+            - install-dependencies
+      - typescript:
+          requires:
+            - install-dependencies
+      - unit-tests:
+          requires:
+            - install-dependencies
+      - build-package:
+          requires:
+            - install-dependencies
