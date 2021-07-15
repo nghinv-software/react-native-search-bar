@@ -81,11 +81,11 @@ export default App;
 | borderRadius | `number` | `12` |  |
 | cancelButton | `boolean` | `true` | Show, hide cancel button |
 | cancelTitle | `string` | `Cancel` |  |
-| cancelTitle | `string` | `Cancel` |  |
 | cancelTitleStyle | `TextStyle` | `undefined` |  |
 | onFocus | `() => void` | `undefined` |  |
 | onBlur | `() => void` | `undefined` |  |
 | onSubmitEditing | `() => void` | `undefined` |  |
+| value | `string` | `undefined` |  |
 | onChangeText | `(value: string) => void` | `undefined` |  |
 | isDarkTheme | `boolean` | `false` |  |
 | theme | `InputThemeType` |  |  |
@@ -127,6 +127,11 @@ TextInputThemeDefault = {
   },
 };
 ```
+
+---
+## Credits
+
+- [@Nghi-NV](https://github.com/Nghi-NV)
 
 
 [version-badge]: https://img.shields.io/npm/v/@nghinv/react-native-search-bar.svg?style=flat-square

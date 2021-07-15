@@ -1,6 +1,6 @@
 {
   "name": "@nghinv/react-native-search-bar",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React Native SearchBar Component",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -68,7 +68,7 @@
   },
   "dependencies": {
     "react-fast-compare": "*",
-    "@nghinv/react-native-icons": "^1.0.6",
+    "react-native-vector-icons": "*",
     "react-native-gesture-handler": "*",
     "react-native-reanimated": ">=2.0.0-rc.0"
   },

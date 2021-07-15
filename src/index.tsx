@@ -6,7 +6,8 @@
 import React, { useCallback, useRef, useMemo, useImperativeHandle } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, TextInputProps, StyleProp, ViewStyle, TextStyle, LayoutChangeEvent, useWindowDimensions, Platform } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring, Easing, withTiming } from 'react-native-reanimated';
-import { Icon } from '@nghinv/react-native-icons';
+// @ts-ignore
+import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import equals from 'react-fast-compare';
 
 const IS_ANDROID = Platform.OS === 'android';
@@ -170,7 +171,7 @@ function SearchBarComponent(props: SearchBarProps, ref: React.Ref<any>) {
     }
 
     return {
-      marginRight: withSpring(isFocus.value ? cancelButtonWidth.value + 16 : 0, springConfig),
+      marginRight: withSpring(isFocus.value ? cancelButtonWidth.value + 8 : 0, springConfig),
     };
   });
 
@@ -239,14 +240,14 @@ function SearchBarComponent(props: SearchBarProps, ref: React.Ref<any>) {
               onPress={onClear}
               hitSlop={hitSlop}
             >
-              <Icon name='close' type='Ionicons' color='rgba(0, 0, 0, 0.6)' size={14} />
+              <Ionicons name='close' color='rgba(0, 0, 0, 0.6)' size={14} />
             </TouchableOpacity>
           </Animated.View>
         </Animated.View>
         <View
           style={styles.searchIcon}
         >
-          <Icon name='search' type='Ionicons' color={themeStyle.searchIconColor} size={18} />
+          <Ionicons name='search' color={themeStyle.searchIconColor} size={18} />
         </View>
         {
           cancelButton && (
