@@ -1,6 +1,6 @@
 {
   "name": "@nghinv/react-native-search-bar",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "React Native SearchBar Component",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -37,9 +37,7 @@
   },
   "homepage": "https://github.com/nghinv-software/react-native-search-bar#readme",
   "publishConfig": {
-    "access": "public",
-    "cache": "~/.npm",
-    "registry": "https://npm.pkg.github.com"
+    "access": "public"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",
@@ -64,13 +62,13 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
-  },
-  "dependencies": {
-    "react-fast-compare": "*",
+    "react-native": "*",
     "react-native-vector-icons": "*",
     "react-native-gesture-handler": "*",
     "react-native-reanimated": ">=2.0.0-rc.0"
+  },
+  "dependencies": {
+    "react-fast-compare": "*"
   },
   "jest": {
     "preset": "react-native",
