@@ -30,7 +30,7 @@ npm install @nghinv/react-native-search-bar
 - peerDependencies
 
 ```sh
-yarn add react-native-gesture-handler react-native-reanimated @nghinv/react-native-icons
+yarn add react-native-gesture-handler react-native-reanimated
 ```
 
 ## Usage
