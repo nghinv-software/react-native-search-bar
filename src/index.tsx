@@ -84,6 +84,8 @@ interface SearchBarProps extends CustomTextInputProps {
   onBlur?: () => void;
   onSubmitEditing?: () => void;
   onChangeText?: (value: string) => void;
+  clearIcon?: React.ComponentType<any> | React.ReactElement | null;
+  searchIcon?: React.ComponentType<any> | React.ReactElement | null;
 }
 
 function SearchBarComponent(props: SearchBarProps, ref: React.Ref<any>) {
@@ -102,6 +104,8 @@ function SearchBarComponent(props: SearchBarProps, ref: React.Ref<any>) {
     onBlur,
     onSubmitEditing,
     onChangeText,
+    clearIcon,
+    searchIcon,
     ...otherProps
   } = props;
   const refInput = useRef<TextInput>(null);
@@ -240,14 +244,18 @@ function SearchBarComponent(props: SearchBarProps, ref: React.Ref<any>) {
               onPress={onClear}
               hitSlop={hitSlop}
             >
-              <Ionicons name='close' color='rgba(0, 0, 0, 0.6)' size={14} />
+              {clearIcon != null ? (clearIcon) : (
+                <Ionicons name='close' color='rgba(0, 0, 0, 0.6)' size={14} />
+              )}
             </TouchableOpacity>
           </Animated.View>
         </Animated.View>
         <View
           style={styles.searchIcon}
         >
-          <Ionicons name='search' color={themeStyle.searchIconColor} size={18} />
+          {searchIcon != null ? (searchIcon) : (
+            <Ionicons name='search' color={themeStyle.searchIconColor} size={18} />
+          )}
         </View>
         {
           cancelButton && (
