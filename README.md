@@ -95,6 +95,8 @@ export default App;
 | onChangeText | `(value: string) => void` | `undefined` |  |
 | isDarkTheme | `boolean` | `false` |  |
 | theme | `InputThemeType` |  |  |
+| clearIcon | `React.ReactNode` | `null` |  |
+| searchIcon | `React.ReactNode` | `null` |  |
 
 
 - **InputThemeType**

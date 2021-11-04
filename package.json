@@ -1,6 +1,6 @@
 {
   "name": "@nghinv/react-native-search-bar",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "React Native SearchBar Component",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
