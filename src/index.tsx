@@ -3,9 +3,33 @@
  * Copyright (c) 2021 nghinv@lumi.biz
  */
 
-import React, { useCallback, useRef, useMemo, useImperativeHandle } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, TextInputProps, StyleProp, ViewStyle, TextStyle, LayoutChangeEvent, useWindowDimensions, Platform } from 'react-native';
-import Animated, { useAnimatedStyle, useSharedValue, withSpring, Easing, withTiming } from 'react-native-reanimated';
+import React, {
+  useCallback,
+  useRef,
+  useMemo,
+  useImperativeHandle,
+} from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  TextInput,
+  TextInputProps,
+  StyleProp,
+  ViewStyle,
+  TextStyle,
+  LayoutChangeEvent,
+  useWindowDimensions,
+  Platform,
+} from 'react-native';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  Easing,
+  withTiming,
+} from 'react-native-reanimated';
 // @ts-ignore
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import equals from 'react-fast-compare';
@@ -67,7 +91,7 @@ export type InputThemeType = {
   clearIconColor?: string;
   searchIconColor?: string;
   textButtonColor?: string;
-}
+};
 
 interface SearchBarProps extends CustomTextInputProps {
   containerStyle?: StyleProp<ViewStyle>;
@@ -80,6 +104,7 @@ interface SearchBarProps extends CustomTextInputProps {
   cancelTitleStyle?: StyleProp<TextStyle>;
   theme?: InputThemeType;
   isDarkTheme?: boolean;
+  onCancel?: () => void;
   onFocus?: () => void;
   onBlur?: () => void;
   onSubmitEditing?: () => void;
@@ -100,6 +125,7 @@ function SearchBarComponent(props: SearchBarProps, ref: React.Ref<any>) {
     cancelTitleStyle,
     theme,
     isDarkTheme,
+    onCancel,
     onFocus,
     onBlur,
     onSubmitEditing,
@@ -110,22 +136,29 @@ function SearchBarComponent(props: SearchBarProps, ref: React.Ref<any>) {
   } = props;
   const refInput = useRef<TextInput>(null);
   const isFocus = useSharedValue(false);
-  const clearButton = useSharedValue(props.value?.length as number > 0);
+  const clearButton = useSharedValue((props.value?.length as number) > 0);
   const cancelButtonWidth = useSharedValue(40);
   const dimensions = useWindowDimensions();
 
-  const themeStyle = useMemo(() => ({
-    ...(isDarkTheme ? TextInputTheme.dark : TextInputTheme.light),
-    ...theme,
-  }), [theme, isDarkTheme]);
+  const themeStyle = useMemo(
+    () => ({
+      ...(isDarkTheme ? TextInputTheme.dark : TextInputTheme.light),
+      ...theme,
+    }),
+    [theme, isDarkTheme]
+  );
 
-  const onCancel = useCallback(() => {
+  const onCancelPress = useCallback(() => {
+    onCancel?.();
     refInput.current?.blur();
   }, [refInput]);
 
-  const onCancelLayout = useCallback((event: LayoutChangeEvent) => {
-    cancelButtonWidth.value = event.nativeEvent.layout.width;
-  }, [cancelButtonWidth]);
+  const onCancelLayout = useCallback(
+    (event: LayoutChangeEvent) => {
+      cancelButtonWidth.value = event.nativeEvent.layout.width;
+    },
+    [cancelButtonWidth]
+  );
 
   const onClear = useCallback(() => {
     refInput.current?.clear();
@@ -148,14 +181,17 @@ function SearchBarComponent(props: SearchBarProps, ref: React.Ref<any>) {
     onSubmitEditing?.();
   }, [isFocus, onSubmitEditing]);
 
-  const onChangeTextInput = useCallback((text: string) => {
-    onChangeText?.(text);
-    if (text.length > 0) {
-      clearButton.value = true;
-    } else {
-      clearButton.value = false;
-    }
-  }, [clearButton, onChangeText]);
+  const onChangeTextInput = useCallback(
+    (text: string) => {
+      onChangeText?.(text);
+      if (text.length > 0) {
+        clearButton.value = true;
+      } else {
+        clearButton.value = false;
+      }
+    },
+    [clearButton, onChangeText]
+  );
 
   useImperativeHandle(ref, () => ({
     clear: () => {
@@ -175,7 +211,10 @@ function SearchBarComponent(props: SearchBarProps, ref: React.Ref<any>) {
     }
 
     return {
-      marginRight: withSpring(isFocus.value ? cancelButtonWidth.value + 8 : 0, springConfig),
+      marginRight: withSpring(
+        isFocus.value ? cancelButtonWidth.value + 8 : 0,
+        springConfig
+      ),
     };
   });
 
@@ -195,7 +234,11 @@ function SearchBarComponent(props: SearchBarProps, ref: React.Ref<any>) {
       opacity: withTiming(isFocus.value ? 1 : 0, timingConfig),
       transform: [
         { scale: withTiming(isFocus.value ? 1 : 0, timingConfig) },
-        { translateX: isFocus.value ? withTiming(0, { duration: 0 }) : withTiming(dimensions.width, { duration: 650 }) },
+        {
+          translateX: isFocus.value
+            ? withTiming(0, { duration: 0 })
+            : withTiming(dimensions.width, { duration: 650 }),
+        },
       ],
     };
   });
@@ -223,13 +266,17 @@ function SearchBarComponent(props: SearchBarProps, ref: React.Ref<any>) {
           ]}
         >
           <TextInput
-            returnKeyType='search'
+            returnKeyType="search"
             autoCorrect={false}
             multiline={false}
             {...otherProps}
-            underlineColorAndroid='transparent'
-            clearButtonMode='never'
-            style={[styles.textInput, textInputStyle, { color: themeStyle.textColor }]}
+            underlineColorAndroid="transparent"
+            clearButtonMode="never"
+            style={[
+              styles.textInput,
+              textInputStyle,
+              { color: themeStyle.textColor },
+            ]}
             placeholderTextColor={themeStyle.placeholderColor}
             selectionColor={themeStyle.selectionColor}
             onFocus={onTextInputFocus}
@@ -240,34 +287,47 @@ function SearchBarComponent(props: SearchBarProps, ref: React.Ref<any>) {
           />
           <Animated.View style={[styles.viewClear, clearButtonStyle]}>
             <TouchableOpacity
-              style={[styles.clearButton, { backgroundColor: themeStyle.clearIconColor }]}
+              style={[
+                styles.clearButton,
+                { backgroundColor: themeStyle.clearIconColor },
+              ]}
               onPress={onClear}
               hitSlop={hitSlop}
             >
-              {clearIcon ?? <Ionicons name='close' color='rgba(0, 0, 0, 0.6)' size={14} />}
+              {clearIcon ?? (
+                <Ionicons name="close" color="rgba(0, 0, 0, 0.6)" size={14} />
+              )}
             </TouchableOpacity>
           </Animated.View>
         </Animated.View>
-        <View
-          style={styles.searchIcon}
-        >
-          {searchIcon ?? <Ionicons name='search' color={themeStyle.searchIconColor} size={18} />}
+        <View style={styles.searchIcon}>
+          {searchIcon ?? (
+            <Ionicons
+              name="search"
+              color={themeStyle.searchIconColor}
+              size={18}
+            />
+          )}
         </View>
-        {
-          cancelButton && (
-            <Animated.View
-              style={[styles.viewCancelButton, textStyle]}
+        {cancelButton && (
+          <Animated.View style={[styles.viewCancelButton, textStyle]}>
+            <TouchableOpacity
+              hitSlop={hitSlop}
+              onPress={onCancelPress}
+              onLayout={onCancelLayout}
             >
-              <TouchableOpacity
-                hitSlop={hitSlop}
-                onPress={onCancel}
-                onLayout={onCancelLayout}
+              <Text
+                style={[
+                  styles.cancel,
+                  { color: themeStyle.textButtonColor },
+                  cancelTitleStyle,
+                ]}
               >
-                <Text style={[styles.cancel, { color: themeStyle.textButtonColor }, cancelTitleStyle]}>{cancelTitle}</Text>
-              </TouchableOpacity>
-            </Animated.View>
-          )
-        }
+                {cancelTitle}
+              </Text>
+            </TouchableOpacity>
+          </Animated.View>
+        )}
       </View>
     </View>
   );
