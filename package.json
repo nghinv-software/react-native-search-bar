@@ -1,6 +1,6 @@
 {
-  "name": "@parkera19/react-native-search-bar",
-  "version": "1.0.0",
+  "name": "@nghinv/react-native-search-bar",
+  "version": "0.2.1",
   "description": "React Native SearchBar Component",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -30,15 +30,15 @@
     "component",
     "react-native-search-bar"
   ],
-  "repository": "https://github.com/parkera19/react-native-search-bar",
-  "author": "parkera19 <pandrews@g.hmc.edu> (https://github.com/parkera19)",
+  "repository": "https://github.com/nghinv-software/react-native-search-bar",
+  "author": "NghiNV <nguyennghidt6@gmail.com> (https://github.com/nghi-nv)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/parkera19/react-native-search-bar/issues"
+    "url": "https://github.com/nghinv-software/react-native-search-bar/issues"
   },
   "homepage": "https://github.com/nghinv-software/react-native-search-bar#readme",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "access": "public"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",
