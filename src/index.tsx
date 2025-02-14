@@ -1,37 +1,32 @@
-/**
- * Created by nghinv on Fri Jun 18 2021
- * Copyright (c) 2021 nghinv@lumi.biz
- */
-
 import React, {
   useCallback,
-  useRef,
-  useMemo,
   useImperativeHandle,
+  useMemo,
+  useRef,
 } from 'react';
 import {
-  View,
-  Text,
-  TouchableOpacity,
+  LayoutChangeEvent,
+  Platform,
+  StyleProp,
   StyleSheet,
+  Text,
   TextInput,
   TextInputProps,
-  StyleProp,
-  ViewStyle,
   TextStyle,
-  LayoutChangeEvent,
+  TouchableOpacity,
   useWindowDimensions,
-  Platform,
+  View,
+  ViewStyle,
 } from 'react-native';
 import Animated, {
+  Easing,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
-  Easing,
   withTiming,
 } from 'react-native-reanimated';
 // @ts-ignore
-import Ionicons from 'react-native-vector-icons/dist/Ionicons';
+import Ionicons from '@react-native-vector-icons/ionicons';
 import equals from 'react-fast-compare';
 
 const IS_ANDROID = Platform.OS === 'android';

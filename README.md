@@ -1,6 +1,6 @@
-# @nghinv/react-native-search-bar
+# react-native-search-bar-animated
 
-React Native SearchBar Component use reanimated 2 library
+React Native SearchBar Component use reanimated library
 
 ---
 
@@ -18,13 +18,13 @@ React Native SearchBar Component use reanimated 2 library
 ## Installation
 
 ```sh
-yarn add @nghinv/react-native-search-bar
+yarn add react-native-search-bar-animated
 ```
 
 or 
 
 ```sh
-npm install @nghinv/react-native-search-bar
+npm install react-native-search-bar-animated
 ```
 
 - peerDependencies
@@ -38,7 +38,7 @@ yarn add react-native-gesture-handler react-native-reanimated
 ```js
 import React, { useState, useCallback } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import SearchBar from '@nghinv/react-native-search-bar';
+import SearchBar from 'react-native-search-bar-animated';
 
 function App() {
   const [text, setText] = useState('');
